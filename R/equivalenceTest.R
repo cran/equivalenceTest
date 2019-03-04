@@ -1,0 +1,40 @@
+#' eqivalenceTest: A package for evaluating equivalence of the means of two normal distributions.
+#'
+#'  We implemented two equivalence tests which evaluate equivalence in the means of two normal distributions. The first is discussed by \insertCite{tsong2017development;textual}{equivalenceTest} and the second by \insertCite{weng2018improved;textual}{equivalenceTest}.
+#'
+#'  Let \eqn{X_{I,i}\sim_{IID} N(\mu_I,\sigma_I)} for \eqn{I=T,R} and \eqn{i=1,...,n_I}, where \eqn{T} stands for test distribution and \eqn{R} for reference distribution.
+#'  The equivalence test here considers the following hypotheses,
+#'  \deqn{ H_0: |\mu_T - \mu_R| \ge \delta \;\mathrm{versus}\;H_1:|\mu_T - \mu_R| < \delta, }
+#'  where \eqn{\delta} is the equivalence margin.
+#'
+#'  Let  \eqn{\hat{\mu}_I} and  \eqn{\hat{\sigma}_I^2} be the sample mean and unbiased sample variance estimates respectively for \eqn{I=T,R}.
+#'  \insertCite{tsong2017development;textual}{equivalenceTest} define the follows test statistics,
+#'  \deqn{\tau_1=\frac{\hat{\mu}_T-\hat{\mu}_R+\delta}{\sqrt{\hat{\sigma}_T^2/n_T^*+\hat{\sigma}_R^2/n_R^*}},}
+#'  and
+#'  \deqn{\tau_2=\frac{\hat{\mu}_T-\hat{\mu}_R-\delta}{\sqrt{\hat{\sigma}_T^2/n_T^*+\hat{\sigma}_R^2/n_R^*}},}
+#'  where \eqn{n_T^*=min\{n_T,1.5n_R\}} and \eqn{n_R^*=min\{n_R,1.5n_R\}} are possibly adjusted sample sizes proposed by \insertCite{dong2017adjustment;textual}{equivalenceTest}.
+#'
+#'  The null hypothesis \eqn{H_0} is rejected at nominal size \eqn{\alpha} if both \eqn{\tau_1 > t_{1-\alpha,df^*}} and \eqn{\tau_2 < -t_{1-\alpha,df^*}} where \eqn{t_{1-\alpha,df^*}} is the \eqn{(1-\alpha)}-th quantile of the t-distribution with degree of freedom \eqn{df^*}, which is approximated by the Satterthwaite method with sample size adjusted and given as follows,
+#' \deqn{df^*=\frac{\left(\frac{\hat{\sigma}_T^2}{n_T^*}+\frac{\hat{\sigma}_R^2}{n_T^*}\right)^2}{\frac{1}{n_B-1} \left(\frac{\hat{\sigma}_T^2}{n_T^*}\right)^2+\frac{1}{n_R-1} \left(\frac{\hat{\sigma}_R^2}{n_R^*}\right)^2}.}
+#'
+#' The above assumes that \eqn{\delta} is a predetermined constant. However, in many studies, such constant is not available, and \eqn{\delta} must be determined by the study data. A popular choice is \eqn{\delta=k\hat{\sigma_R}}. In this case, the above test may not control type I error well.
+#'
+#' Replacing \eqn{\delta} by \eqn{k\sigma_R}, the hypotheses becomes
+#' \deqn{ H_0^\prime: |\mu_T - \mu_R| \ge k\sigma_R \;\mathrm{versus}\;H_a^\prime |\mu_T - \mu_R| < k\sigma_R. }
+#'
+#' \insertCite{weng2018improved;textual}{equivalenceTest} proposed an improved Wald test with the following test statistics,
+#'  \deqn{\tau_1^\prime=\frac{\hat{\mu}_T-\hat{\mu}_R+k\hat{\sigma}_R}{\sqrt{\frac{\tilde{\sigma}_{T,1}^2}{n_T^*}+\left(\frac{1}{n_R^*}+\frac{k^2V_{n_R}}{n_R-1}\right)\tilde{\sigma}_{R,1}^2}},}
+#'  \deqn{\tau_2^\prime=\frac{\hat{\mu}_T-\hat{\mu}_R-k\hat{\sigma}_R}{\sqrt{\frac{\tilde{\sigma}_{T,2}^2}{n_T^*}+\left(\frac{1}{n_R^*}+\frac{k^2V_{n_R}}{n_R-1}\right)\tilde{\sigma}_{R,2}^2}},}
+#'  where \eqn{V_{n_R} = n_R-1-2\frac{\Gamma^22(n_R/2)}{\Gamma^2((n_R-1)/2)}} and \eqn{\tilde{\sigma}_{T,i}} and  \eqn{\tilde{\sigma}_{R,i}} are the restricted maximum likelihood estimator of \eqn{\sigma_T} and \eqn{\sigma_R} respectively with the constraint \eqn{\mu_T - \mu_R = (-1)^i \sigma_R}.
+#'
+#' The null hypothesis \eqn{H_0^\prime} is rejected at nominal size \eqn{\alpha} if both \eqn{\tau_1^\prime > z_{1-\alpha}} and \eqn{\tau_2^\prime < -z_{1-\alpha}} where \eqn{z_{1-\alpha}} is the  \eqn{(1-\alpha)}-th quantile of the standard normal distribution.
+#'
+#' For more details, see the cited reference.
+#'
+#' @docType package
+#' @name equivalenceTest
+#' @import graphics
+#' @import stats
+#' @references
+#'  \insertAllCited{}
+NULL
